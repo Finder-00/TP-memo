@@ -3,7 +3,6 @@ import formaterDateEtHeure from '../services/utilitaires';
 import IconButton from '@material-ui/core/IconButton';
 import DoneIcon from '@material-ui/icons/Done';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {useState} from 'react';
 
 export default function Tache({id, texte, completee, date, supprimerTache, etatCompleter}) {
   return (

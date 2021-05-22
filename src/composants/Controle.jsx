@@ -4,8 +4,9 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export default function Controle({etatTaches, utilisateur}) {
-  
+export default function Controle({etatTaches, utilisateur, supprimerToutesTaches, idColl}) {
+  const [taches] = etatTaches;
+
   return (
     <footer className="Controle">
       <ToggleButtonGroup 
@@ -17,14 +18,14 @@ export default function Controle({etatTaches, utilisateur}) {
         <ToggleButton value={false}>Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
-        ?? tâches restantes
+        {taches.length} tâches restantes
       </span>
       <IconButton 
-        aria-label="delete" 
+        aria-label="delete"
         size="small" 
         variant="contained" 
-        color="secondary" 
-        onClick={() => alert('Rien pour le moment')} 
+        color="secondary"
+        onClick = {() => supprimerToutesTaches(idColl)}
         title="Supprimer les tâches complétées"
       >
         <DeleteIcon fontSize="small" />
