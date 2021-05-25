@@ -10,13 +10,27 @@ export default function Controle({etatTaches, utilisateur, completee, AfficheCom
   const [taches, setTaches] = etatTaches;
   const uid = utilisateur.uid;
 
+  const [toggleButton, setToggleButton] = useState(['toutes']);
+  useEffect(
+    () => {
+
+  },[]);
+
 
   // affiche les taches completee
   function AfficheCompl(completee){
     crudTaches.lireTout(uid).then(
       () => {
         setTaches(taches.filter(task => {
-          return task.completee === true;
+          if(ToggleButton.value == true){
+            return task.completee === true;
+          }
+          else if(ToggleButton.value == false){
+            return task.completee !== completee;
+          }
+          else if(ToggleButton.value == 'toutes'){
+            return true;
+          }
         }))
       }
     )
@@ -50,9 +64,10 @@ export default function Controle({etatTaches, utilisateur, completee, AfficheCom
         size="small" 
         exclusive={true} 
       >
-        <ToggleButton value={'toutes'} onClick = {() => crudTaches.lireTout(utilisateur.uid)}>Toutes</ToggleButton>
+        {/* crudTaches.lireTout(utilisateur.uid) */}
+        <ToggleButton value={'toutes'} onClick = {() => AfficheCompl(completee) }>Toutes</ToggleButton>
         <ToggleButton value={true} onClick = {() => AfficheCompl(completee)}>Complétées</ToggleButton>
-        <ToggleButton value={false} onClick = {() => AfficheIncomplete(!completee)}>Actives</ToggleButton>
+        <ToggleButton value={false} onClick = {() => AfficheCompl(!completee)}>Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
         {taches.length} tâches restantes
