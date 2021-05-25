@@ -16,6 +16,7 @@ export default function Appli() {
 
   // État des tâches
   const etatTaches = useState([]);
+
   return (
     utilisateur ?
       <div className="Appli">
@@ -24,7 +25,7 @@ export default function Appli() {
           <Utilisateur utilisateur={utilisateur} />
         </header>
         <Taches etatTaches={etatTaches} utilisateur={utilisateur} />
-        <Controle etatTaches={etatTaches} utilisateur={utilisateur} />
+        <Controle etatTaches={etatTaches} utilisateur={utilisateur}/>
       </div>
     :
       <Accueil />

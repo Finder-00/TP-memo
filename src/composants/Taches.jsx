@@ -47,17 +47,6 @@ export default function Taches({etatTaches, utilisateur}) {
     )
   }
 
-  function supprimerToutesTaches(idColl){
-    crudTaches.supprimerTout(uid, idColl).then(
-      () => {
-        // en filtrant on excite le setTache qui fera reafficher react 
-        setTaches(taches.filter(task => {
-          return task.id !== idColl
-        }))
-      }
-    )
-  }
-
   function etatCompleter(idtache, completee){
     crudTaches.completee(uid, idtache, completee).then(
       () => {
@@ -87,7 +76,7 @@ export default function Taches({etatTaches, utilisateur}) {
       </form>
       <div className="listeTaches">
         {
-          taches.map(tache => <Tache key={tache.id} {... tache} etatCompleter={etatCompleter} supprimerTache={supprimerTache} supprimerToutesTaches={supprimerToutesTaches}/>)
+          taches.map(tache => <Tache key={tache.id} {... tache} etatCompleter={etatCompleter} supprimerTache={supprimerTache}/>)
         }
       </div>
     </section>
