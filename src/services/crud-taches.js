@@ -45,8 +45,8 @@ export async function supprimer(uid, id) {
 }
 
 // supprime toutes les taches completee
-export async function supprimerTout(uid, id, completee) {
-  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).delete()
+export async function supprimerTout(uid, idColl, completee) {
+  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).delete(idColl.completee == true);
 }
 
 export async function completee(uid, idTache, etatTache) {

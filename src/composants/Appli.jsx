@@ -16,6 +16,7 @@ export default function Appli() {
 
   // État des tâches
   const etatTaches = useState([]);
+  const [toggleButton, setToggleButton] = useState(['toutes']);
 
   return (
     utilisateur ?
@@ -25,7 +26,7 @@ export default function Appli() {
           <Utilisateur utilisateur={utilisateur} />
         </header>
         <Taches etatTaches={etatTaches} utilisateur={utilisateur} />
-        <Controle etatTaches={etatTaches} utilisateur={utilisateur}/>
+        <Controle setToggleButton={setToggleButton} etatTaches={etatTaches} utilisateur={utilisateur}/>
       </div>
     :
       <Accueil />

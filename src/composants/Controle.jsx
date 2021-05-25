@@ -4,23 +4,24 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import * as crudTaches from '../services/crud-taches';
+import { useEffect, useState } from 'react';
 
-export default function Controle({etatTaches, utilisateur, completee, AfficheCompl, supprimerToutesTaches, idColl}) {
+export default function Controle({etatTaches, utilisateur, completee, setToggleButton, AfficheCompl, supprimerToutesTaches, idColl}) {
 
   const [taches, setTaches] = etatTaches;
   const uid = utilisateur.uid;
 
-  const [toggleButton, setToggleButton] = useState(['toutes']);
-  useEffect(
-    () => {
 
-  },[]);
-
+const gestionValeur = (e) =>{
+  console.log(e.target.value);
+  setToggleButton(e.target.value);
+}
 
   // affiche les taches completee
   function AfficheCompl(completee){
     crudTaches.lireTout(uid).then(
       () => {
+        console.log(setToggleButton.value);
         setTaches(taches.filter(task => {
           if(ToggleButton.value == true){
             return task.completee === true;
@@ -65,9 +66,9 @@ export default function Controle({etatTaches, utilisateur, completee, AfficheCom
         exclusive={true} 
       >
         {/* crudTaches.lireTout(utilisateur.uid) */}
-        <ToggleButton value={'toutes'} onClick = {() => AfficheCompl(completee) }>Toutes</ToggleButton>
-        <ToggleButton value={true} onClick = {() => AfficheCompl(completee)}>Complétées</ToggleButton>
-        <ToggleButton value={false} onClick = {() => AfficheCompl(!completee)}>Actives</ToggleButton>
+        <ToggleButton value={'toutes'} onClick={AfficheCompl}>Toutes</ToggleButton>
+        <ToggleButton value={true} onClick={AfficheCompl}>Complétées</ToggleButton>
+        <ToggleButton value={false} onClick={gestionValeur}>Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
         {taches.length} tâches restantes
