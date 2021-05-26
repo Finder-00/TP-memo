@@ -6,47 +6,20 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import * as crudTaches from '../services/crud-taches';
 import { useEffect, useState } from 'react';
 
-export default function Controle({etatTaches, utilisateur, completee, setToggleButton, AfficheCompl, supprimerToutesTaches, idColl}) {
+export default function Controle({etatTaches, utilisateur, completee, setValeurBouton,setFiltre , AfficheCompl, supprimerToutesTaches, idColl}) {
 
-  const [taches, setTaches] = etatTaches;
-  const uid = utilisateur.uid;
-
+const [taches, setTaches] = etatTaches;
+const uid = utilisateur.uid;
 
 const gestionValeur = (e) =>{
   console.log(e.target.value);
-  setToggleButton(e.target.value);
+  setValeurBouton(e.target.value);
 }
 
-  // affiche les taches completee
-  function AfficheCompl(completee){
-    crudTaches.lireTout(uid).then(
-      () => {
-        console.log(setToggleButton.value);
-        setTaches(taches.filter(task => {
-          if(ToggleButton.value == true){
-            return task.completee === true;
-          }
-          else if(ToggleButton.value == false){
-            return task.completee !== completee;
-          }
-          else if(ToggleButton.value == 'toutes'){
-            return true;
-          }
-        }))
-      }
-    )
-  }
-
-  // affiche les taches incomplete
-  function AfficheIncomplete(completee){
-    crudTaches.lireTout(uid).then(
-      () => {
-        setTaches(taches.filter(task => {
-          return task.completee !== completee;
-        }))
-      }
-    )
-  }
+// affiche les taches completee
+function setValeurBoutonTemp(completee){
+  
+}
 
   // supprimer les taches completee
   function supprimerToutesTaches(idColl){
@@ -61,14 +34,14 @@ const gestionValeur = (e) =>{
 
   return (
     <footer className="Controle">
-      <ToggleButtonGroup 
+      <ToggleButtonGroup
         size="small" 
         exclusive={true} 
       >
         {/* crudTaches.lireTout(utilisateur.uid) */}
-        <ToggleButton value={'toutes'} onClick={AfficheCompl}>Toutes</ToggleButton>
-        <ToggleButton value={true} onClick={AfficheCompl}>Complétées</ToggleButton>
-        <ToggleButton value={false} onClick={gestionValeur}>Actives</ToggleButton>
+        <ToggleButton value={'toutes'} onClick={() => setValeurBouton('toutes')}>Toutes</ToggleButton>
+        <ToggleButton value={true} onClick={() => setValeurBouton(true)}>Complétées</ToggleButton>
+        <ToggleButton value={false} onClick={() => setValeurBouton(false)}>Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
         {taches.length} tâches restantes

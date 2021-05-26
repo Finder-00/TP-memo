@@ -3,7 +3,7 @@ import './Taches.scss';
 import * as crudTaches from '../services/crud-taches';
 import { useEffect } from 'react';
 
-export default function Taches({etatTaches, utilisateur}) {
+export default function Taches({etatTaches, utilisateur, valeurBouton}) {
   const uid = utilisateur.uid;
   const [taches, setTaches] = etatTaches;
 
@@ -12,9 +12,19 @@ export default function Taches({etatTaches, utilisateur}) {
    */
    useEffect(() => 
    crudTaches.lireTout(uid).then(
-     taches => setTaches(taches)
+     taches => setTaches(taches.filter(task => {
+      if(valeurBouton === true){
+        return task.completee === true;
+      }
+      else if(valeurBouton === false){
+        return task.completee === false;
+      }
+      else{
+        return true;
+      }
+    }))
    )
- , [setTaches, uid]);
+ , [setTaches, uid, valeurBouton]);
   
 
   /**
@@ -62,6 +72,7 @@ export default function Taches({etatTaches, utilisateur}) {
       }
     )
   }
+
 
   return (
     <section className="Taches">

@@ -17,12 +17,12 @@ export default function Tache({id, texte, completee, date, supprimerTache, etatC
       </IconButton>
       <span className="texte">{texte}</span>
       <span className="date">({formaterDateEtHeure(date)})</span>
-      <IconButton
+      <IconButton onClick={()=> supprimerTache(id)}
         size="small"
         color="primary"
         title="Supprimer cette tâche" 
       >
-        <DeleteIcon onClick={()=> supprimerTache(id)}/>
+        <DeleteIcon/>
       </IconButton>
     </div>
   );
