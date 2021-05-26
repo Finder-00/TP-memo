@@ -4,29 +4,19 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import * as crudTaches from '../services/crud-taches';
-import { useEffect, useState } from 'react';
 
-export default function Controle({etatTaches, utilisateur, completee, setValeurBouton,setFiltre , AfficheCompl, supprimerToutesTaches, idColl}) {
+export default function Controle({etatTaches, utilisateur, completee, setValeurBouton, supprimerToutesTaches, idTache}) {
 
 const [taches, setTaches] = etatTaches;
 const uid = utilisateur.uid;
 
-const gestionValeur = (e) =>{
-  console.log(e.target.value);
-  setValeurBouton(e.target.value);
-}
-
-// affiche les taches completee
-function setValeurBoutonTemp(completee){
-  
-}
 
   // supprimer les taches completee
-  function supprimerToutesTaches(idColl){
-    crudTaches.supprimerTout(uid, idColl, completee).then(
+  function supprimerToutesTaches(idTache){
+    crudTaches.supprimerTout(uid, idTache, completee).then(
       () => {
         setTaches(taches.filter(task => {
-          return task.id !== idColl
+          return task.id !== idTache
         }))
       }
     )
@@ -51,7 +41,7 @@ function setValeurBoutonTemp(completee){
         size="small" 
         variant="contained" 
         color="secondary"
-        onClick = {() => supprimerToutesTaches(idColl)}
+        onClick = {() => supprimerToutesTaches(idTache)}
         title="Supprimer les tâches complétées"
       >
         <DeleteIcon fontSize="small" />

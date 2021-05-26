@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-import Tache from '../composants/Tache';
 import { collUtil, collTaches } from './config';
 import { instanceFirestore } from './firebase-initialisation';
 
@@ -45,8 +44,14 @@ export async function supprimer(uid, id) {
 }
 
 // supprime toutes les taches completee
-export async function supprimerTout(uid, idColl, completee) {
-  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).where(idColl, {completee: true}).delete();
+export async function supprimerTout(uid, idTache, completee){
+  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).where('completee', '==', 'true').get().then(
+    query => {
+      query.forEach(tache => {
+        tache.ref.delete();
+      });
+    }
+  );
 }
 
 export async function completee(uid, idTache, etatTache) {
