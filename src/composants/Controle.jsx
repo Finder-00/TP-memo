@@ -16,7 +16,7 @@ const uid = utilisateur.uid;
     crudTaches.supprimerTout(uid, idTache, completee).then(
       () => {
         setTaches(taches.filter(task => {
-          return task.id !== idTache
+          return task.completee == false
         }))
       }
     )

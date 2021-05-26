@@ -44,10 +44,10 @@ export async function supprimer(uid, id) {
 }
 
 // supprime toutes les taches completee
-export async function supprimerTout(uid, idTache, completee){
-  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).where('completee', '==', 'true').get().then(
-    query => {
-      query.forEach(tache => {
+export async function supprimerTout(uid){
+  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).where('completee', '==', true).get().then(
+    requete => {
+      requete.forEach(tache => {
         tache.ref.delete();
       });
     }
